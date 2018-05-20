@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>計算及監聽</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="images/favicon.ico" rel="shortcut icon">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/stylesheets/all.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/regular.js" integrity="sha384-t7yHmUlwFrLxHXNLstawVRBMeSLcXTbQ5hsd0ifzwGtN7ZF7RZ8ppM7Ldinuoiif" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>    <script src="/javascripts/vendor.js"></script>
+
+  </head>
+  
+  <body class="bg-lighter">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="/">Vue.js 練習手冊</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/basic/dev.html">基礎教學</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/template/basic.html">模板指令</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/components/basic.html">組件</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/api/vue_set.html">常用 API</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/es6/let_const.html">ES6</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/other/Tic_Tac_Toe.html">其它</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+    <div class="container my-5">
+      <div class="row">
+        
+          <div class="col-md-3">
+            
+<div>
+  <h6 class="text-capitalize text-muted">template</h6>
+  
+    
+      <a href="/template/basic.html"  class="btn btn-block btn-link">
+        基礎模板語法
+      </a>
+    
+  
+    
+      <a href="/template/v_class.html"  class="btn btn-block btn-link">
+        切換樣式
+      </a>
+    
+  
+    
+      <a href="/template/v_if.html"  class="btn btn-block btn-link">
+        v-if 模板判斷
+      </a>
+    
+  
+    
+      <a href="/template/v_for.html"  class="btn btn-block btn-link">
+        v-for 迴圈
+      </a>
+    
+  
+    
+      <a href="/template/computed_watch.html"  class="btn btn-block btn-primary active">
+        計算及監聽
+      </a>
+    
+  
+    
+      <a href="/template/form.html"  class="btn btn-block btn-link">
+        表單補充介紹
+      </a>
+    
+  
+    
+      <a href="/template/v_on.html"  class="btn btn-block btn-link">
+        v-on 事件綁定
+      </a>
+    
+  
+</div>
+          </div>
+        
+        <div class="col-md-9 post">      
+          <!-- 練習開始 -->
+          <h1 class="mt-0 text-muted">計算及監聽</h1>
+          
+<div class="alert alert-secondary">
+  <ol class="mb-0">
+    <li>請跟隨課程完成此章節。</li>
+  </ol>  
+</div>
+
+<div id="app">
+  <h4>Computed</h4>
+  <p>使用 Computed 來過濾資料。</p>
+  <input type="text" class="form-control" v-model="filterText">
+  <ul>
+    <li v-for="(item, key) in arrayData" :key="item.age">
+      {{ key }} - {{ item.name }} {{ item.age }} 歲 <input type="text">
+    </li>
+  </ul> 
+  <p>使用 Computed 來呈現時間格式。</p>
+  <p></p>
+  <h4>Watch</h4>
+  <p>使用 trigger 來觸發旋轉 box、並在三秒後改變回來</p>
+  <div class="box" :class="{'rotate': trigger }"></div>
+  <hr>
+  <button class="btn btn-outline-primary">Counter</button>
+</div>
+
+<script>
+var app = new Vue({
+  el: '#app',
+  data: {
+    arrayData: [
+      {
+        name: '小明',
+        age: 16
+      },
+      {
+        name: '漂亮阿姨',
+        age: 24
+      },
+      {
+        name: '杰倫',
+        age: 20
+      }
+    ],
+    filterText: '',
+    trigger: false,
+    newDate: 0
+  },
+
+  // 解答
+  // methods: {
+  //   openTrigger: function() {
+  //     var vm = this;
+  //     vm.trigger = true
+  //   },
+  //   closeTrigger: function() {
+  //     var vm = this;
+  //     setTimeout(function() { 
+  //       vm.trigger = false
+  //     }, 3000);
+  //   }
+  // },
+  // watch: {
+  //   trigger: function() {
+  //     this.closeTrigger();
+  //   }
+  // },
+  // computed: {
+  //   filterArray: function () {
+  //     var vm = this;
+  //     return vm.arrayData.filter(function(item) {
+  //       return item.name.match(vm.filterText);
+  //     });
+  //   },
+  //   formatTime: function () {
+  //     console.log(this.newDate)
+  //     var dates = new Date(this.newDate * 1000);
+  //     var year = dates.getFullYear();
+  //     var month = dates.getMonth() + 1;
+  //     var date = dates.getDate() + 1;
+  //     var hours = dates.getHours();
+  //     var minutes = dates.getMinutes();
+  //     var seconds = dates.getSeconds();
+  //     return `${year}/${month}/${date} ${hours}:${minutes}:${seconds}`
+  //   }
+  // },
+  // mounted: function () {
+  //   this.newDate = Math.floor(Date.now() / 1000);
+  // }
+});
+</script>
+
+<style>
+.box {
+  transition: all .5s;
+}
+.box.rotate {
+  transform: rotate(45deg)
+}
+</style>
+
+<!-- 解答：
+<h4>Computed</h4>
+<input type="text" class="form-control" v-model="filterText">
+<ul>
+  <li v-for="(item, key) in filterArray" :key="item.age">
+    {{ key }} - {{ item.name }} {{ item.age }} 歲 <input type="text">
+  </li>
+</ul>
+<p>使用 Computed 來呈現時間格式。</p>
+<p>{{ formatTime }}</p>
+<h4>Watch</h4>
+<p>使用 trigger 來觸發三秒後旋轉 box、並在三秒後改變回來</p>
+<div class="box" :class="{'rotate': trigger }"></div>
+<hr>
+<button class="btn btn-outline-primary" @click="openTrigger">Counter</button>
+--> 
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

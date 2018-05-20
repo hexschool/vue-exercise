@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>展開與其餘</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="images/favicon.ico" rel="shortcut icon">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/stylesheets/all.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/regular.js" integrity="sha384-t7yHmUlwFrLxHXNLstawVRBMeSLcXTbQ5hsd0ifzwGtN7ZF7RZ8ppM7Ldinuoiif" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>    <script src="/javascripts/vendor.js"></script>
+
+  </head>
+  
+  <body class="bg-lighter">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="/">Vue.js 練習手冊</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/basic/dev.html">基礎教學</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/template/basic.html">模板指令</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/components/basic.html">組件</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/api/vue_set.html">常用 API</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/es6/let_const.html">ES6</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/other/Tic_Tac_Toe.html">其它</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+    <div class="container my-5">
+      <div class="row">
+        
+          <div class="col-md-3">
+            
+<div>
+  <h6 class="text-capitalize text-muted">other</h6>
+  
+    
+      <a href="/other/Tic_Tac_Toe.html"  class="btn btn-block btn-primary active">
+        井字遊戲
+      </a>
+    
+  
+</div>
+          </div>
+        
+        <div class="col-md-9 post">      
+          <!-- 練習開始 -->
+          <h1 class="mt-0 text-muted">展開與其餘</h1>
+          
+<div class="alert alert-secondary">
+  <ol class="mb-0">
+    <li>請跟隨課程完成此章節。</li>
+  </ol>
+</div>
+
+<div id="app">
+  <h1 v-show="winner">勝利者是 {{ winner }}</h1>
+  <div class="grid-layout">
+    <div class="item bg-white" v-for="(item, key) in empty_position" :style="item" 
+      @click="choose(item, key)">
+    </div>
+    <div class="item bg-info" v-for="item in user1_position" :style="item">
+      <i class="far fa-circle fa-3x"></i>
+    </div>
+    <div class="item bg-primary" v-for="item in user2_position" :style="item">
+      <i class="fas fa-times fa-3x"></i>
+    </div>
+    
+  </div>
+</div>
+
+
+<script>
+var definePostion = (data, name) => {
+  return data.map((item) => {
+    return {
+      'position': item,
+      'grid-column-start': item[0],
+      'grid-row-start': item[1],
+    }
+  });
+}
+var compareWinner = (winRequirement, user) => {
+  var isWin = false;
+  winRequirement.forEach((req) => {
+    var i = []
+    // 列出所有勝利組合
+    req.forEach((reqItem) => {
+      // 比對組合
+      user.forEach((item) => {
+        if (item[0] === reqItem[0] && item[1] === reqItem[1]) {
+          i.push(item);
+        }
+      });
+    });
+    // 滿足所有條件
+    if (i.length === 3) {
+      isWin = true;
+    }
+  });
+  return isWin;
+}
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    user1: [],
+    user2: [],
+    empty: [
+      [1, 1], [1, 2], [1, 3],
+      [2, 1], [2, 2], [2, 3],
+      [3, 1], [3, 2], [3, 3]
+    ],
+    round: 'user1',
+    winRequirement: [
+      // 水平
+      [[1, 1], [1, 2], [1, 3]],
+      [[2, 1], [2, 2], [2, 3]],
+      [[3, 1], [3, 2], [3, 3]],
+      // 垂直
+      [[1, 1], [2, 1], [3, 1]],
+      [[1, 2], [2, 2], [3, 2]],
+      [[1, 3], [2, 3], [3, 3]],
+      // 交叉
+      [[1, 1], [2, 2], [3, 3]],
+      [[1, 3], [2, 2], [3, 1]],
+    ],
+    winner: ''
+  },
+  computed: {
+    user1_position () {
+      return definePostion(this.user1);
+    },
+    user2_position () {
+      return definePostion(this.user2);
+    },
+    empty_position () {
+      return definePostion(this.empty);
+    }
+  },
+  watch: {
+    user1 () {
+      var vm = this;
+      var isWin = compareWinner(vm.winRequirement, vm.user1);
+      if (isWin) {
+        vm.winner = '玩家 O'
+      }
+    },
+    user2 () {
+      var vm = this;
+      var isWin = compareWinner(vm.winRequirement, vm.user2);
+      if (isWin) {
+        vm.winner = '玩家 X'
+      }
+    },
+  },
+  methods: {
+    choose (item, key) {
+      var vm = this;
+      vm[vm.round].push(item.position);
+      vm.empty.splice(key, 1);
+      vm.round = (vm.round == 'user2' ? 'user1' : 'user2');
+    }
+  }
+})
+</script>
+
+<style>
+.grid-layout {
+  width: 300px;
+  height: 300px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-gap: 5px;
+}
+.item {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+}
+</style> 
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

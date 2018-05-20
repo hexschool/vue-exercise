@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>跨組件通訊</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="images/favicon.ico" rel="shortcut icon">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/stylesheets/all.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/regular.js" integrity="sha384-t7yHmUlwFrLxHXNLstawVRBMeSLcXTbQ5hsd0ifzwGtN7ZF7RZ8ppM7Ldinuoiif" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>    <script src="/javascripts/vendor.js"></script>
+
+  </head>
+  
+  <body class="bg-lighter">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="/">Vue.js 練習手冊</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/basic/dev.html">基礎教學</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/template/basic.html">模板指令</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/components/basic.html">組件</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/api/vue_set.html">常用 API</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/es6/let_const.html">ES6</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/other/Tic_Tac_Toe.html">其它</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+    <div class="container my-5">
+      <div class="row">
+        
+          <div class="col-md-3">
+            
+<div>
+  <h6 class="text-capitalize text-muted">components</h6>
+  
+    
+      <a href="/components/basic.html"  class="btn btn-block btn-link">
+        基礎元件
+      </a>
+    
+  
+    
+      <a href="/components/function_return.html"  class="btn btn-block btn-link">
+        元件必須使用 function return
+      </a>
+    
+  
+    
+      <a href="/components/prop_basic.html"  class="btn btn-block btn-link">
+        由外到內的資料傳遞
+      </a>
+    
+  
+    
+      <a href="/components/prop_adv.html"  class="btn btn-block btn-link">
+        Props 注意事項
+      </a>
+    
+  
+    
+      <a href="/components/prop_type.html"  class="btn btn-block btn-link">
+        Props 的型別
+      </a>
+    
+  
+    
+      <a href="/components/emit.html"  class="btn btn-block btn-link">
+        向外層傳送事件(Data)
+      </a>
+    
+  
+    
+      <a href="/components/slot.html"  class="btn btn-block btn-link">
+        Slot 插槽替換
+      </a>
+    
+  
+    
+      <a href="/components/is.html"  class="btn btn-block btn-link">
+        動態組建切換
+      </a>
+    
+  
+    
+      <a href="/components/eventbus.html"  class="btn btn-block btn-primary active">
+        Event Bus
+      </a>
+    
+  
+</div>
+          </div>
+        
+        <div class="col-md-9 post">      
+          <!-- 練習開始 -->
+          <h1 class="mt-0 text-muted">跨組件通訊</h1>
+          
+<div class="alert alert-secondary">
+  <ol class="mb-0">
+    <li>請跟隨課程完成此章節。</li>
+  </ol>
+</div>
+
+<div id="app">
+  <h2>使用 $.on 建立跨組件偵聽</h2>
+  <div class="row">
+    <div class="col-md-6">
+      <primary-component></primary-component>
+    </div>
+    <div class="col-md-6">
+      <danger-component></danger-component>
+    </div>
+  </div>
+</div>
+
+<script type="text/x-template" id="primaryComponent">
+<div class="card text-white bg-primary mb-3">
+  <div class="card-header">藍色組件</div>
+  <div class="card-body">
+    <input type="text" class="form-control" v-model="msg" @keyup.enter="pushtoDanger">
+    <ul>
+      <li>接收到的訊息：</li>
+      <li v-for="item in data">{{ item }}</li>
+    </ul>
+  </div>
+</div>
+</script>
+<script type="text/x-template" id="dangerComponent">
+<div class="card text-white bg-danger mb-3">
+  <div class="card-header">紅色組件</div>
+  <div class="card-body">
+    <ul>
+      <li>接收到的訊息：</li>
+      <li v-for="item in data">{{ item }}</li>
+    </ul>
+    <input type="text" class="form-control" v-model="msg" @keyup.enter="pushtoPrimary">
+  </div>
+</div>
+</script>
+
+<script>
+// 說明：https://vuejs.org/v2/style-guide/#Non-flux-state-management-use-with-caution
+// 此方法適合用在小型專案，大型專案請謹慎使用
+
+Vue.component('primary-component', {
+  template: '#primaryComponent',
+  data: function() {
+    return {
+      data: [],
+      msg: ''
+    }
+  },
+  methods: {
+    pushtoDanger: function() {
+    }
+  },
+  mounted: function (){
+    var vm = this;
+  }
+});
+Vue.component('danger-component', {
+  template: '#dangerComponent',
+  data: function() {
+    return {
+      data: [],
+      msg: ''
+    }
+  },
+  methods: {
+    pushtoPrimary: function() {
+    }
+  },
+  mounted: function (){
+  }
+});
+
+var app = new Vue({
+  el: '#app',
+  data: {}
+});
+</script>
+<!-- 
+Vue.prototype.$eventbus = new Vue();
+// 在原型部分加上 Event Bus
+
+
+Vue.component('primary-component', {
+  template: '#primaryComponent',
+  data: function() {
+    return {
+      data: [],
+      msg: ''
+    }
+  },
+  methods: {
+    pushtoDanger: function() {
+      console.log('pushtoDanger', this.msg);
+      this.$eventbus.$emit('pushtoDanger', this.msg);
+    }
+  },
+  mounted: function (){
+    var vm = this;
+    vm.$eventbus.$on('pushtoPrimary', function (msg) {
+      vm.data.push(msg)
+    })
+  }
+});
+Vue.component('danger-component', {
+  template: '#dangerComponent',
+  data: function() {
+    return {
+      data: [],
+      msg: ''
+    }
+  },
+  methods: {
+    pushtoPrimary: function() {
+      this.$eventbus.$emit('pushtoPrimary', this.msg);
+    }
+  },
+  mounted: function (){
+    var vm = this;
+    vm.$eventbus.$on('pushtoDanger', function (msg) {
+      console.log('pushtoDanger', msg)
+      vm.data.push(msg)
+    })
+  }
+});
+--> 
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

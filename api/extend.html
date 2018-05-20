@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Extend</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="images/favicon.ico" rel="shortcut icon">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/stylesheets/all.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/regular.js" integrity="sha384-t7yHmUlwFrLxHXNLstawVRBMeSLcXTbQ5hsd0ifzwGtN7ZF7RZ8ppM7Ldinuoiif" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>    <script src="/javascripts/vendor.js"></script>
+
+  </head>
+  
+  <body class="bg-lighter">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="/">Vue.js 練習手冊</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/basic/dev.html">基礎教學</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/template/basic.html">模板指令</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/components/basic.html">組件</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/api/vue_set.html">常用 API</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/es6/let_const.html">ES6</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/other/Tic_Tac_Toe.html">其它</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+    <div class="container my-5">
+      <div class="row">
+        
+          <div class="col-md-3">
+            
+<div>
+  <h6 class="text-capitalize text-muted">api</h6>
+  
+    
+      <a href="/api/vue_set.html"  class="btn btn-block btn-link">
+        Vue 的資料與 Set
+      </a>
+    
+  
+    
+      <a href="/api/filter.html"  class="btn btn-block btn-link">
+        Vue Filter
+      </a>
+    
+  
+    
+      <a href="/api/extend.html"  class="btn btn-block btn-primary active">
+        Vue Extend
+      </a>
+    
+  
+    
+      <a href="/api/mixin.html"  class="btn btn-block btn-link">
+        Vue Mixins
+      </a>
+    
+  
+    
+      <a href="/api/directive.html"  class="btn btn-block btn-link">
+        自定義指令
+      </a>
+    
+  
+    
+      <a href="/api/use.html"  class="btn btn-block btn-link">
+        使用外部套件
+      </a>
+    
+  
+</div>
+          </div>
+        
+        <div class="col-md-9 post">      
+          <!-- 練習開始 -->
+          <h1 class="mt-0 text-muted">Extend</h1>
+          
+<div class="alert alert-secondary">
+  <ol class="mb-0">
+    <li>請跟隨課程完成此章節。</li>
+  </ol>
+</div>
+
+<div id="app">
+  <table class="table">
+    <tbody>
+      <tr is="row-component-one" v-for="(item, key) in data" 
+        v-if="key % 2"
+        :item="item" :key="key"></tr>
+      <tr is="row-component-two" v-for="(item, key) in data" 
+        v-if="(key - 1) % 2"
+        :item="item" :key="key"></tr>
+    </tbody>
+  </table>
+</div>
+
+<script type="text/x-template" id="row-component">
+  <tr>
+    <td>{{ item.name }}</td>
+    <td>{{ item.cash | currency | dollarSign }}</td>
+    <td>{{ item.icash | currency | dollarSign }}</td>
+  </tr>
+</script>
+
+<script type="text/x-template" id="row-component-two">
+  <tr class="bg-primary text-white">
+    <td>{{ item.name }}</td>
+    <td>{{ item.cash | currency | dollarSign }}</td>
+    <td>{{ item.icash | currency | dollarSign }}</td>
+  </tr>
+</script>
+
+<script>
+// extend 是基礎建構的概念
+// var newExtend = Vue.extend()
+
+var childOne = {
+  props: ['item'],
+  data: function() {
+    return {
+      data: {},
+      extendData: '這段文字是 extend 得到'
+    }
+  },
+  template: '#row-component',
+  filters: {
+    dollarSign: function (n) {
+      return `$ ${n}`
+    },
+    currency: function(n) {
+      return n.toFixed(2).replace(/./g, function(c, i, a) {
+          return i && c !== "." && ((a.length - i) % 3 === 0) ? ',' + c : c;
+      });
+    }
+  },
+  mounted: function() {
+    console.log('Extend:', this)
+  }
+}
+
+var childTwo = {
+  props: ['item'],
+  data: function() {
+    return {
+      data: {},
+      extendData: '這段文字是 extend 得到'
+    }
+  },
+  template: '#row-component-two',
+  filters: {
+    dollarSign: function (n) {
+      return `$ ${n}`
+    },
+    currency: function(n) {
+      return n.toFixed(2).replace(/./g, function(c, i, a) {
+          return i && c !== "." && ((a.length - i) % 3 === 0) ? ',' + c : c;
+      });
+    }
+  },
+  mounted: function() {
+    console.log('Extend:', this)
+  }
+}
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    data: [
+      {
+        name: '小明',
+        cash: 100,
+        icash: 500,
+      },
+      {
+        name: '杰倫',
+        cash: 10000,
+        icash: 5000,
+      },
+      {
+        name: '漂亮阿姨',
+        cash: 500,
+        icash: 500,
+      },
+      {
+        name: '老媽',
+        cash: 10000,
+        icash: 100,
+      },
+    ]
+  },
+  components: {
+    "row-component-one": childOne,
+    "row-component-two": childTwo,
+  },
+  mounted: function() {
+    console.log('Vue init:', this)
+  }
+});
+</script>
+
+<!-- 
+var newExtend = Vue.extend({
+  data: function() {
+    return {
+      data: {},
+      extendData: '這段文字是 extend 得到'
+    }
+  },
+  template: '#row-component',
+  filters: {
+    dollarSign: function (n) {
+      return `$ ${n}`
+    },
+    currency: function(n) {
+      return n.toFixed(2).replace(/./g, function(c, i, a) {
+          return i && c !== "." && ((a.length - i) % 3 === 0) ? ',' + c : c;
+      });
+    }
+  },
+  mounted: function() {
+    console.log('Extend:', this)
+  }
+})
+
+var childOne = {
+  props: ['item'],
+  extends: newExtend,
+}
+
+var childTwo = {
+  props: ['item'],
+  data: function() {
+    return {
+      child: '第二份的資料'
+    }
+  },
+  template: '#row-component-two',
+  extends: newExtend,
+  mounted: function() {
+    console.log('Component 2:', this)
+  }
+}
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    data: [
+      {
+        name: '小明',
+        cash: 100,
+        icash: 500,
+      },
+      {
+        name: '杰倫',
+        cash: 10000,
+        icash: 5000,
+      },
+      {
+        name: '漂亮阿姨',
+        cash: 500,
+        icash: 500,
+      },
+      {
+        name: '老媽',
+        cash: 10000,
+        icash: 100,
+      },
+    ]
+  },
+  components: {
+    "row-component-one": childOne,
+    "row-component-two": childTwo,
+  },
+  mounted: function() {
+    console.log('Vue init:', this)
+  }
+});
+--> 
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

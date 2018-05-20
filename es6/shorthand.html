@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ES6 縮寫</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="images/favicon.ico" rel="shortcut icon">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/stylesheets/all.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/regular.js" integrity="sha384-t7yHmUlwFrLxHXNLstawVRBMeSLcXTbQ5hsd0ifzwGtN7ZF7RZ8ppM7Ldinuoiif" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>    <script src="/javascripts/vendor.js"></script>
+
+  </head>
+  
+  <body class="bg-lighter">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="/">Vue.js 練習手冊</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/basic/dev.html">基礎教學</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/template/basic.html">模板指令</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/components/basic.html">組件</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/api/vue_set.html">常用 API</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/es6/let_const.html">ES6</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/other/Tic_Tac_Toe.html">其它</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+    <div class="container my-5">
+      <div class="row">
+        
+          <div class="col-md-3">
+            
+<div>
+  <h6 class="text-capitalize text-muted">es6</h6>
+  
+    
+      <a href="/es6/let_const.html"  class="btn btn-block btn-link">
+        let, const 基礎教學
+      </a>
+    
+  
+    
+      <a href="/es6/spread_operator.html"  class="btn btn-block btn-link">
+        展開與其餘
+      </a>
+    
+  
+    
+      <a href="/es6/destructuring.html"  class="btn btn-block btn-link">
+        解構賦值
+      </a>
+    
+  
+    
+      <a href="/es6/shorthand.html"  class="btn btn-block btn-primary active">
+        縮寫
+      </a>
+    
+  
+    
+      <a href="/es6/arrow_function.html"  class="btn btn-block btn-link">
+        箭頭函式與傳統函式之差異
+      </a>
+    
+  
+    
+      <a href="/es6/template_string.html"  class="btn btn-block btn-link">
+        Template String
+      </a>
+    
+  
+    
+      <a href="/es6/array_function.html"  class="btn btn-block btn-link">
+        陣列方法
+      </a>
+    
+  
+    
+      <a href="/es6/eslint.html"  class="btn btn-block btn-link">
+        使用現成規範撰寫 ES6
+      </a>
+    
+  
+</div>
+          </div>
+        
+        <div class="col-md-9 post">      
+          <!-- 練習開始 -->
+          <h1 class="mt-0 text-muted">ES6 縮寫</h1>
+          
+<div class="alert alert-secondary">
+  <ol class="mb-0">
+    <li>請跟隨課程完成此章節。</li>
+  </ol>
+</div>
+
+
+<script>
+// #1 物件縮寫
+// 請將以下兩個合併至一個物件上
+const Frieza = '弗利沙'
+const GinyuTeam = {
+  Ginyu: '基紐',
+  Jeice: '吉斯',
+  burter: '巴特',
+  // ...
+}
+
+
+// #2 案例
+// 在 Vue.js CLI 常見情境
+// import Vue from 'vue'
+// import App from './App'
+// import router from './router'
+// // 將套件由 './App' 路徑載入，並使用 App 這個變數名稱
+// new Vue({
+//   el: '#app',
+//   router,
+//   template: '<App/>',
+//   components: { App }
+// });
+// // 縮寫方式載入及使用
+
+
+// # 物件函式縮寫
+// 縮寫以下 showPosture Function
+// const newTeam = {
+//   // ...
+//   showPosture: function () {
+//     console.log('我們是 基紐特戰隊')
+//   }
+// }
+
+// # 搭配解構使用
+// 將以下物件指向賦予到另一個物件上，並且避免參考
+// const GinyuTeam = {
+//   Ginyu: {
+//     name: '基紐'
+//   },
+//   Jeice: {
+//     name: '吉斯'
+//   },
+//   burter: { 
+//     name: '巴特'
+//   },
+//   // ...
+// }
+
+</script> 
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

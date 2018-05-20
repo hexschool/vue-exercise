@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>v-if 模板判斷</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="images/favicon.ico" rel="shortcut icon">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/stylesheets/all.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/regular.js" integrity="sha384-t7yHmUlwFrLxHXNLstawVRBMeSLcXTbQ5hsd0ifzwGtN7ZF7RZ8ppM7Ldinuoiif" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>    <script src="/javascripts/vendor.js"></script>
+
+  </head>
+  
+  <body class="bg-lighter">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="/">Vue.js 練習手冊</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/basic/dev.html">基礎教學</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/template/basic.html">模板指令</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/components/basic.html">組件</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/api/vue_set.html">常用 API</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/es6/let_const.html">ES6</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/other/Tic_Tac_Toe.html">其它</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+    <div class="container my-5">
+      <div class="row">
+        
+          <div class="col-md-3">
+            
+<div>
+  <h6 class="text-capitalize text-muted">template</h6>
+  
+    
+      <a href="/template/basic.html"  class="btn btn-block btn-link">
+        基礎模板語法
+      </a>
+    
+  
+    
+      <a href="/template/v_class.html"  class="btn btn-block btn-link">
+        切換樣式
+      </a>
+    
+  
+    
+      <a href="/template/v_if.html"  class="btn btn-block btn-primary active">
+        v-if 模板判斷
+      </a>
+    
+  
+    
+      <a href="/template/v_for.html"  class="btn btn-block btn-link">
+        v-for 迴圈
+      </a>
+    
+  
+    
+      <a href="/template/computed_watch.html"  class="btn btn-block btn-link">
+        計算及監聽
+      </a>
+    
+  
+    
+      <a href="/template/form.html"  class="btn btn-block btn-link">
+        表單補充介紹
+      </a>
+    
+  
+    
+      <a href="/template/v_on.html"  class="btn btn-block btn-link">
+        v-on 事件綁定
+      </a>
+    
+  
+</div>
+          </div>
+        
+        <div class="col-md-9 post">      
+          <!-- 練習開始 -->
+          <h1 class="mt-0 text-muted">v-if 模板判斷</h1>
+          
+<div class="alert alert-secondary">
+  <ol class="mb-0">
+    <li>請跟隨課程完成此章節。</li>
+  </ol>
+</div>
+
+<div id="app">
+  <h4>v-if, v-else</h4>
+  <p>使用 v-if, v-else 切換物件呈現</p>
+  <div class="alert alert-success">成功!</div>
+  <div class="alert alert-danger">失敗!</div>
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="isSuccess" v-model="isSuccess">
+    <label class="form-check-label" for="isSuccess">啟用元素狀態</label>
+  </div>
+
+  <h4>template 標籤</h4>
+  <p>使用 template 切換多數 DOM 呈現</p>
+  <table class="table">
+    <thead>
+      <th>編號</th>
+      <th>姓名</th>
+    </thead>
+    <tr>
+      <td>1</td>
+      <td>安妮</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>小明</td>
+    </tr>
+  </table>
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="showTemplate" v-model="showTemplate">
+    <label class="form-check-label" for="showTemplate">啟用元素狀態</label>
+  </div>
+  <hr>
+  <h4>v-else-if</h4>
+  <p>使用 v-else-if 做出分頁頁籤</p>
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link" href="#">標題一</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">標題二</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">標題三</a>
+    </li>
+  </ul>
+  <div class="content">
+    <div>Ａ</div>
+    <div>Ｂ</div>
+    <div>Ｃ</div>
+  </div>
+  <hr>
+  <h4>KEY</h4>
+  <p>講師說明 Vue 切換狀態可能遇到的問題</p>
+  <template v-if="loginType === 'username'">
+    <label>Username</label>
+    <input class="form-control" placeholder="Enter your username">
+  </template>
+  <template v-else>
+    <label>Email</label>
+    <input class="form-control" placeholder="Enter your email address">
+  </template>
+  <button class="btn btn-outline-primary mt-3" @click="toggleLoginType">切換狀態</button>
+  <hr>
+  <h4>v-if 與 v-show</h4>
+  <p>講師說明 v-if 與 v-show 的差異</p>
+  <div class="alert alert-success" v-show="isSuccess">成功!</div>
+  <div class="alert alert-danger" v-show="!isSuccess">失敗!</div>
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="isSuccess2" v-model="isSuccess">
+    <label class="form-check-label" for="isSuccess2">啟用元素狀態</label>
+  </div>
+</div>
+
+<script>
+var app = new Vue({
+  el: '#app',
+  data: {
+    isSuccess: true,
+    showTemplate: true,
+
+    link: 'a',
+
+    loginType: 'username'
+  },
+  methods: {
+    toggleLoginType: function () {
+      return this.loginType = this.loginType === 'username' ? 'email' : 'username'
+    }
+  }
+});
+</script>
+
+<!-- 解答：
+<h4>v-if, v-else</h4>
+<div class="alert alert-success" v-if="isSuccess">成功!</div>
+<div class="alert alert-danger" v-else>失敗!</div>
+<div class="form-check">
+  <input type="checkbox" class="form-check-input" id="isSuccess" v-model="isSuccess">
+  <label class="form-check-label" for="isSuccess">啟用元素狀態</label>
+</div>
+
+<h4>template 標籤</h4>
+<table class="table">
+  <thead>
+    <th>編號</th>
+    <th>姓名</th>
+  </thead>
+  <template v-if="showTemplate">
+    <tr>
+      <td>1</td>
+      <td>安妮</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>小明</td>
+    </tr>
+  </template>
+</table>
+<div class="form-check">
+  <input type="checkbox" class="form-check-input" id="showTemplate" v-model="showTemplate">
+  <label class="form-check-label" for="showTemplate">啟用元素狀態</label>
+</div>
+<hr>
+<h4>v-else-if</h4>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link" href="#" :class="{'active': link === 'a'}" @click="link = 'a'">標題一</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#" :class="{'active': link === 'b'}" @click="link = 'b'">標題二</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#" :class="{'active': link === 'c'}" @click="link = 'c'">標題三</a>
+  </li>
+</ul>
+<div class="content">
+  <div v-if="link === 'a'">Ａ</div>
+  <div v-else-if="link === 'b'">Ｂ</div>
+  <div v-else-if="link === 'c'">Ｃ</div>
+</div>
+--> 
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

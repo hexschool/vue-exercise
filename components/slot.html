@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Slot 插槽替換</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="images/favicon.ico" rel="shortcut icon">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/stylesheets/all.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/regular.js" integrity="sha384-t7yHmUlwFrLxHXNLstawVRBMeSLcXTbQ5hsd0ifzwGtN7ZF7RZ8ppM7Ldinuoiif" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>    <script src="/javascripts/vendor.js"></script>
+
+  </head>
+  
+  <body class="bg-lighter">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="/">Vue.js 練習手冊</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/basic/dev.html">基礎教學</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/template/basic.html">模板指令</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/components/basic.html">組件</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/api/vue_set.html">常用 API</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/es6/let_const.html">ES6</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/other/Tic_Tac_Toe.html">其它</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+    <div class="container my-5">
+      <div class="row">
+        
+          <div class="col-md-3">
+            
+<div>
+  <h6 class="text-capitalize text-muted">components</h6>
+  
+    
+      <a href="/components/basic.html"  class="btn btn-block btn-link">
+        基礎元件
+      </a>
+    
+  
+    
+      <a href="/components/function_return.html"  class="btn btn-block btn-link">
+        元件必須使用 function return
+      </a>
+    
+  
+    
+      <a href="/components/prop_basic.html"  class="btn btn-block btn-link">
+        由外到內的資料傳遞
+      </a>
+    
+  
+    
+      <a href="/components/prop_adv.html"  class="btn btn-block btn-link">
+        Props 注意事項
+      </a>
+    
+  
+    
+      <a href="/components/prop_type.html"  class="btn btn-block btn-link">
+        Props 的型別
+      </a>
+    
+  
+    
+      <a href="/components/emit.html"  class="btn btn-block btn-link">
+        向外層傳送事件(Data)
+      </a>
+    
+  
+    
+      <a href="/components/slot.html"  class="btn btn-block btn-primary active">
+        Slot 插槽替換
+      </a>
+    
+  
+    
+      <a href="/components/is.html"  class="btn btn-block btn-link">
+        動態組建切換
+      </a>
+    
+  
+    
+      <a href="/components/eventbus.html"  class="btn btn-block btn-link">
+        Event Bus
+      </a>
+    
+  
+</div>
+          </div>
+        
+        <div class="col-md-9 post">      
+          <!-- 練習開始 -->
+          <h1 class="mt-0 text-muted">Slot 插槽替換</h1>
+          
+<div class="alert alert-secondary">
+  <ol class="mb-0">
+    <li>請跟隨課程完成此章節。</li>
+  </ol>
+</div>
+
+<div id="app">
+  <h2>沒有插槽可替換的狀態</h2>
+  <no-slot-component></no-slot-component>
+
+  <h2>Slot 基礎範例</h2>
+  <single-slot-component>
+    <p>使用這段取代原本的 Slot。</p>
+  </single-slot-component>
+
+  <h2>具名插槽</h2>
+  <named-slot-component>
+  </named-slot-component>
+
+  <named-slot-component>
+    <header>替換的 Header</header>
+    <template>替換的 Footer</template>
+    <template>按鈕內容</template>
+    <p>其餘的內容</p>
+  </named-slot-component>
+</div>
+
+<script type="text/x-template" id="noSlotComponent">
+<div class="alert alert-warning">
+  <h6>我是一個元件</h6>
+  <p>
+    這沒有插槽。
+  </p>
+</div>
+</script>
+
+<script type="text/x-template" id="singleSlotComponent">
+<div class="alert alert-warning">
+  <h6>我是一個元件</h6>
+  <div>
+    如果沒有內容，則會顯示此段落。
+  </div>
+</div>
+</script>
+
+<script type="text/x-template" id="namedSlotComponent">
+<div class="card my-3">
+  <div class="card-header">
+    <div>這段是預設的文字</div>
+  </div>
+  <div class="card-body">
+    <slot>
+      <h5 class="card-title">Special title treatment</h5>
+      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    </slot>
+    <a href="#" class="btn btn-primary">
+      <div>spanGo somewhere</div>
+    </a>
+  </div>
+  <div class="card-footer">
+    <div>這是預設的 Footer</div>
+  </div>
+</div>
+</script>
+
+<script>
+Vue.component('no-slot-component', {
+  template: '#noSlotComponent',
+});
+
+Vue.component('single-slot-component', {
+  template: '#singleSlotComponent',
+});
+
+Vue.component('named-slot-component', {
+  template: '#namedSlotComponent',
+});
+
+var app = new Vue({
+  el: '#app',
+  data: {}
+});
+</script>
+
+
+<!--
+<div id="app">
+  <h2>沒有插槽可替換的狀態</h2>
+  <no-slot-component>
+    <p>這段訊息會消失。</p>
+  </no-slot-component>
+
+  <h2>Slot 基礎範例</h2>
+  <single-slot-component></single-slot-component>
+  <single-slot-component>
+    <p>這段會取代原本的 Slot。</p>
+  </single-slot-component>
+
+  <h2>具名插槽</h2>
+  <named-slot-component>
+  </named-slot-component>
+
+  <named-slot-component>
+    <header slot="header">替換的 Header</header>
+    <template slot="footer">替換的 Footer</template>
+    <template slot="btnString">按鈕內容</template>
+    <p slot>其餘的內容</p>
+  </named-slot-component>
+</div>
+
+<script type="text/x-template" id="noSlotComponent">
+<div class="alert alert-warning">
+  <h6>我是一個元件</h6>
+  <p>
+    這沒有插槽。
+  </p>
+</div>
+</script>
+
+<script type="text/x-template" id="singleSlotComponent">
+<div class="alert alert-warning">
+  <h6>我是一個元件</h6>
+  <slot>
+    如果沒有內容，則會顯示此段落。
+  </slot>
+</div>
+</script>
+
+<script type="text/x-template" id="namedSlotComponent">
+<div class="card my-3">
+  <div class="card-header">
+    <slot name="header">這段是預設的文字</slot>
+  </div>
+  <div class="card-body">
+    <slot>
+      <h5 class="card-title">Special title treatment</h5>
+      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    </slot>
+    <a href="#" class="btn btn-primary">
+      <slot name="btnString">spanGo somewhere</slot>
+    </a>
+  </div>
+  <div class="card-footer">
+    <slot name="footer">這是預設的 Footer</slot>
+  </div>
+</div>
+</script>
+--> 
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

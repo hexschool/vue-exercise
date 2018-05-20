@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>預先定義資料結構</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="images/favicon.ico" rel="shortcut icon">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/stylesheets/all.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/regular.js" integrity="sha384-t7yHmUlwFrLxHXNLstawVRBMeSLcXTbQ5hsd0ifzwGtN7ZF7RZ8ppM7Ldinuoiif" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>    <script src="/javascripts/vendor.js"></script>
+
+  </head>
+  
+  <body class="bg-lighter">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="/">Vue.js 練習手冊</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/basic/dev.html">基礎教學</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/template/basic.html">模板指令</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/components/basic.html">組件</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/api/vue_set.html">常用 API</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/es6/let_const.html">ES6</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/other/Tic_Tac_Toe.html">其它</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+    <div class="container my-5">
+      <div class="row">
+        
+          <div class="col-md-3">
+            
+<div>
+  <h6 class="text-capitalize text-muted">basic</h6>
+  
+    
+      <a href="/basic/dev.html"  class="btn btn-block btn-link">
+        Vue 的開發環境
+      </a>
+    
+  
+    
+      <a href="/basic/instant.html"  class="btn btn-block btn-link">
+        建立 Vue 的應用程式
+      </a>
+    
+  
+    
+      <a href="/basic/mvvm.html"  class="btn btn-block btn-link">
+        MVVM 是什麼樣的概念
+      </a>
+    
+  
+    
+      <a href="/basic/directive.html"  class="btn btn-block btn-link">
+        指令
+      </a>
+    
+  
+    
+      <a href="/basic/if_for.html"  class="btn btn-block btn-link">
+        模板語法的延伸 v-if 及 v-for
+      </a>
+    
+  
+    
+      <a href="/basic/v_on.html"  class="btn btn-block btn-link">
+        處理互動式行為 v-on 指令
+      </a>
+    
+  
+    
+      <a href="/basic/defined_var.html"  class="btn btn-block btn-primary active">
+        預先定義資料結構
+      </a>
+    
+  
+    
+      <a href="/basic/modifiers.html"  class="btn btn-block btn-link">
+        修飾符 與 縮寫
+      </a>
+    
+  
+    
+      <a href="/basic/v_class.html"  class="btn btn-block btn-link">
+        切換 Class
+      </a>
+    
+  
+    
+      <a href="/basic/computed.html"  class="btn btn-block btn-link">
+        計算屬性
+      </a>
+    
+  
+    
+      <a href="/basic/form.html"  class="btn btn-block btn-link">
+        表單雙向綁定
+      </a>
+    
+  
+    
+      <a href="/basic/components.html"  class="btn btn-block btn-link">
+        元件化
+      </a>
+    
+  
+    
+      <a href="/basic/todo.html"  class="btn btn-block btn-link">
+        Todo 範例練習
+      </a>
+    
+  
+    
+      <a href="/basic/v_lifecycle.html"  class="btn btn-block btn-link">
+        延伸介紹 - Vue 生命週期
+      </a>
+    
+  
+</div>
+          </div>
+        
+        <div class="col-md-9 post">      
+          <!-- 練習開始 -->
+          <h1 class="mt-0 text-muted">預先定義資料結構</h1>
+          
+<div class="alert alert-secondary">
+  <ol class="mb-0">
+    <li>了解資料結構預先定義與未定義之差異</li>
+  </ol>
+</div>
+
+<div id="app">
+  <input type="text" class="form-control" v-model="text">
+  <button class="btn btn-primary mt-1">反轉字串</button>
+  <div class="mt-3">
+    {{ newText }}
+  </div>
+</div>
+
+<script>
+var app = new Vue({
+  el: '#app',
+  data: {
+    text: '',
+    newText: ''
+  },
+  methods: {
+    reverseText() {
+      console.log(this.text);
+      this.newText = this.text.split('').reverse().join('');
+    }
+  }
+});
+</script>
+ 
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

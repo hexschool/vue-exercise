@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>v-on 事件綁定</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="images/favicon.ico" rel="shortcut icon">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/stylesheets/all.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/regular.js" integrity="sha384-t7yHmUlwFrLxHXNLstawVRBMeSLcXTbQ5hsd0ifzwGtN7ZF7RZ8ppM7Ldinuoiif" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>    <script src="/javascripts/vendor.js"></script>
+
+  </head>
+  
+  <body class="bg-lighter">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="/">Vue.js 練習手冊</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/basic/dev.html">基礎教學</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/template/basic.html">模板指令</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/components/basic.html">組件</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/api/vue_set.html">常用 API</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/es6/let_const.html">ES6</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/other/Tic_Tac_Toe.html">其它</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+    <div class="container my-5">
+      <div class="row">
+        
+          <div class="col-md-3">
+            
+<div>
+  <h6 class="text-capitalize text-muted">template</h6>
+  
+    
+      <a href="/template/basic.html"  class="btn btn-block btn-link">
+        基礎模板語法
+      </a>
+    
+  
+    
+      <a href="/template/v_class.html"  class="btn btn-block btn-link">
+        切換樣式
+      </a>
+    
+  
+    
+      <a href="/template/v_if.html"  class="btn btn-block btn-link">
+        v-if 模板判斷
+      </a>
+    
+  
+    
+      <a href="/template/v_for.html"  class="btn btn-block btn-link">
+        v-for 迴圈
+      </a>
+    
+  
+    
+      <a href="/template/computed_watch.html"  class="btn btn-block btn-link">
+        計算及監聽
+      </a>
+    
+  
+    
+      <a href="/template/form.html"  class="btn btn-block btn-link">
+        表單補充介紹
+      </a>
+    
+  
+    
+      <a href="/template/v_on.html"  class="btn btn-block btn-primary active">
+        v-on 事件綁定
+      </a>
+    
+  
+</div>
+          </div>
+        
+        <div class="col-md-9 post">      
+          <!-- 練習開始 -->
+          <h1 class="mt-0 text-muted">v-on 事件綁定</h1>
+          
+<div class="alert alert-secondary">
+  <ol class="mb-0">
+    <li>請跟隨課程完成此章節。</li>
+  </ol>  
+</div>
+
+<div id="app">
+  <p>請切換下方 box 的 className</p>
+  <div class="box" :class="{'rotate': isRotate }"></div>
+  <hr>
+  <button class="btn btn-outline-primary">切換 box 樣式</button>
+  <hr>
+  <h4>帶入參數</h4>
+  <ul>
+    <li v-for="item in arrayData" class="my-2">
+      {{ item.name }} 有 {{ item.cash }} 元 
+      <button class="btn btn-sm btn-outline-primary">儲值</button>
+    </li>
+  </ul>
+  <h4>修飾符</h4>
+  <h5>事件修飾符</h5>
+  <ul>
+    <li>.stop - 調用 event.stopPropagation()。</li>
+    <li>.prevent - 調用 event.preventDefault()。</li>
+    <li>.capture - 添加事件偵聽器時使用 capture 模式。</li>
+    <li>.self - 只當事件是從偵聽器綁定的元素本身觸發時才觸發回調。</li>
+    <li>.once - 只觸發一次回調。</li>
+  </ul>
+  <h6>將此範例加上 stopPropagation</h6>
+  <div class="p-3 bg-primary" @click="trigger('div')">
+    <span class="box" @click="trigger('box')"></span>
+  </div>
+
+  <h6 class="mt-3">事件偵聽器時使用 capture 模式</h6>
+  <div class="p-3 bg-primary" @click="trigger('div')">
+    <span class="box d-flex align-items-center justify-content-center" @click="trigger('box')">
+      <button class="btn btn-outline-secondary" @click="trigger('button')">按我</button>
+    </span>
+  </div>
+
+  <h6 class="mt-3">事件偵聽器時使用 self 模式</h6>
+  <div class="p-3 bg-primary" @click="trigger('div')">
+    <span class="box d-flex align-items-center justify-content-center" @click="trigger('box')">
+      <button class="btn btn-outline-secondary" @click="trigger('button')">按我</button>
+    </span>
+  </div>
+
+  <h6 class="mt-3">事件偵聽器只觸發一次</h6>
+  <div class="p-3 bg-primary" @click="trigger('div')">
+    <span class="box d-flex align-items-center justify-content-center" @click="trigger('box')">
+      <button class="btn btn-outline-secondary" @click="trigger('button')">按我</button>
+    </span>
+  </div>
+
+  <h5>按鍵修飾符</h5>
+  <ul>
+    <li>.{keyCode | keyAlias} - 只當事件是從特定鍵觸發時才觸發回調。</li>
+    <li>別名修飾 - .enter, .tab, .delete, .esc, .space, .up, .down, .left, .right</li>
+    <li>修飾符來實現僅在按下相應按鍵時才觸發鼠標或鍵盤事件的監聽器 - .ctrl, .alt, .shift, .meta</li>
+  </ul>
+  <h6 class="mt-3">keyCode</h6>
+  <input type="text" class="form-control" v-model="text" @keyup="trigger(13)">
+
+  <h6 class="mt-3">別名修飾</h6>
+  <input type="text" class="form-control" v-model="text" @keyup="trigger('space')">
+
+  <h6 class="mt-3">相應按鍵時才觸發的監聽器</h6>
+  <input type="text" class="form-control" v-model="text" @keyup="trigger('shift + Enter')">
+  <h5>滑鼠修飾符</h5>
+  <ul>
+    <li>.left - (2.2.0) 只當點擊鼠標左鍵時觸發。</li>
+    <li>.right - (2.2.0) 只當點擊鼠標右鍵時觸發。</li>
+    <li>.middle - (2.2.0) 只當點擊鼠標中鍵時觸發。</li>
+  </ul>
+  <h6 class="mt-3">滑鼠修飾符</h6>
+  <div class="p-3 bg-primary">
+    <span class="box" @click="trigger('Right button')">
+    </span>
+  </div>
+</div>
+
+<script>
+var app = new Vue({
+  el: '#app',
+  data: {
+    arrayData: [
+      {
+        name: '小明',
+        age: 16,
+        cash: 500
+      },
+      {
+        name: '漂亮阿姨',
+        age: 24,
+        cash: 1000
+      },
+      {
+        name: '杰倫',
+        age: 20,
+        cash: 5000
+      }
+    ],
+    isRotate: false,
+    text: ''
+  },
+  methods: {
+    changeRotate: function() {
+      this.isRotate = !this.isRotate;
+    },
+    storeMoney: function(item) {
+      item.cash = item.cash + 500;
+    },
+    trigger: function(name) {
+      console.log(name, '此事件被觸發了')
+    }
+  }
+  // 解答
+});
+</script>
+
+<style>
+.box {
+  display: block;
+  transition: all .5s;
+}
+.box.rotate {
+  transform: rotate(45deg)
+}
+</style>
+
+<!-- 解答：
+<div class="box" :class="{'rotate': isRotate }"></div>
+<hr>
+<button class="btn btn-outline-primary" v-on:click="changeRotate">切換 box 樣式</button>
+<hr>
+<h4>帶入參數</h4>
+<ul>
+  <li v-for="item in arrayData" class="my-2">
+    {{ item.name }} 有 {{ item.cash }} 元 
+    <button class="btn btn-sm btn-outline-primary" @click="storeMoney(item)">儲值</button>
+  </li>
+</ul>
+<h4>修飾符</h4>
+<h5>事件修飾符</h5>
+<ul>
+  <li>.stop - 調用 event.stopPropagation()。</li>
+  <li>.prevent - 調用 event.preventDefault()。</li>
+  <li>.capture - 添加事件偵聽器時使用 capture 模式。</li>
+  <li>.self - 只當事件是從偵聽器綁定的元素本身觸發時才觸發回調。</li>
+  <li>.once - 只觸發一次回調。</li>
+</ul>
+<h6>將此範例加上 stopPropagation (防止向外尋找)</h6>
+<div class="p-3 bg-primary" @click="trigger('div')">
+  <span class="box" @click.stop="trigger('box')"></span>
+</div>
+
+<h6 class="mt-3">事件偵聽器時使用 capture 模式 (事件改為由外而內)</h6>
+<div class="p-3 bg-primary" @click.capture="trigger('div')">
+  <span class="box d-flex align-items-center justify-content-center" @click.capture="trigger('box')">
+    <button class="btn btn-outline-secondary" @click.capture="trigger('button')">按我</button>
+  </span>
+</div>
+
+<h6 class="mt-3">事件偵聽器時使用 self 模式 (只會觸發自己範圍內的)</h6>
+<div class="p-3 bg-primary" @click.self="trigger('div')">
+  <span class="box d-flex align-items-center justify-content-center" @click.self="trigger('box')">
+    <button class="btn btn-outline-secondary" @click.self="trigger('button')">按我</button>
+  </span>
+</div>
+
+<h6 class="mt-3">事件偵聽器只觸發一次</h6>
+<div class="p-3 bg-primary" @click.once="trigger('div')">
+  <span class="box d-flex align-items-center justify-content-center" @click.once="trigger('box')">
+    <button class="btn btn-outline-secondary" @click.once="trigger('button')">按我</button>
+  </span>
+</div>
+
+<h5>按鍵修飾符</h5>
+<ul>
+  <li>.{keyCode | keyAlias} - 只當事件是從特定鍵觸發時才觸發回調。</li>
+  <li>別名修飾 - .enter, .tab, .delete, .esc, .space, .up, .down, .left, .right</li>
+  <li>修飾符來實現僅在按下相應按鍵時才觸發鼠標或鍵盤事件的監聽器 - .ctrl, .alt, .shift, .meta</li>
+</ul>
+<h6 class="mt-3">keyCode</h6>
+<input type="text" class="form-control" v-model="text" @keyup.13="trigger(13)">
+
+<h6 class="mt-3">別名修飾</h6>
+<input type="text" class="form-control" v-model="text" @keyup.space="trigger('space')">
+
+<h6 class="mt-3">相應按鍵時才觸發的監聽器</h6>
+<input type="text" class="form-control" v-model="text" @keyup.shift.enter="trigger('shift + Enter')">
+<h5>滑鼠修飾符</h5>
+<ul>
+  <li>.left - (2.2.0) 只當點擊鼠標左鍵時觸發。</li>
+  <li>.right - (2.2.0) 只當點擊鼠標右鍵時觸發。</li>
+  <li>.middle - (2.2.0) 只當點擊鼠標中鍵時觸發。</li>
+</ul>
+<h6 class="mt-3">滑鼠修飾符</h6>
+<div class="p-3 bg-primary">
+  <span class="box" @click.middle="trigger('Right button')">
+  </span>
+</div>
+--> 
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

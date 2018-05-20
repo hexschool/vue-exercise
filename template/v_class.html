@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>切換樣式</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="images/favicon.ico" rel="shortcut icon">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/stylesheets/all.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/regular.js" integrity="sha384-t7yHmUlwFrLxHXNLstawVRBMeSLcXTbQ5hsd0ifzwGtN7ZF7RZ8ppM7Ldinuoiif" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>    <script src="/javascripts/vendor.js"></script>
+
+  </head>
+  
+  <body class="bg-lighter">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="/">Vue.js 練習手冊</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/basic/dev.html">基礎教學</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/template/basic.html">模板指令</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/components/basic.html">組件</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/api/vue_set.html">常用 API</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/es6/let_const.html">ES6</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/other/Tic_Tac_Toe.html">其它</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+    <div class="container my-5">
+      <div class="row">
+        
+          <div class="col-md-3">
+            
+<div>
+  <h6 class="text-capitalize text-muted">template</h6>
+  
+    
+      <a href="/template/basic.html"  class="btn btn-block btn-link">
+        基礎模板語法
+      </a>
+    
+  
+    
+      <a href="/template/v_class.html"  class="btn btn-block btn-primary active">
+        切換樣式
+      </a>
+    
+  
+    
+      <a href="/template/v_if.html"  class="btn btn-block btn-link">
+        v-if 模板判斷
+      </a>
+    
+  
+    
+      <a href="/template/v_for.html"  class="btn btn-block btn-link">
+        v-for 迴圈
+      </a>
+    
+  
+    
+      <a href="/template/computed_watch.html"  class="btn btn-block btn-link">
+        計算及監聽
+      </a>
+    
+  
+    
+      <a href="/template/form.html"  class="btn btn-block btn-link">
+        表單補充介紹
+      </a>
+    
+  
+    
+      <a href="/template/v_on.html"  class="btn btn-block btn-link">
+        v-on 事件綁定
+      </a>
+    
+  
+</div>
+          </div>
+        
+        <div class="col-md-9 post">      
+          <!-- 練習開始 -->
+          <h1 class="mt-0 text-muted">切換樣式</h1>
+          
+<div class="alert alert-secondary">
+  <ol class="mb-0">
+    <li>請跟隨課程完成此章節。</li>
+  </ol>
+</div>
+
+<div id="app">
+  <h4>物件寫法</h4>
+  <div class="box"></div>
+  <p>請為此元素加上動態 className</p>
+  <hr>
+  <button class="btn btn-outline-primary" v-on:click="isTransform = !isTransform">選轉物件</button>
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="classToggle1" v-model="boxColor">
+    <label class="form-check-label" for="classToggle1">切換色彩</label>
+  </div>
+  <hr>
+  <h5>物件寫法 2</h5>
+  <div class="box"></div>
+  <p>請將此範例改為 "物件" 寫法</p>
+  <hr>
+  <button class="btn btn-outline-primary">選轉物件</button>
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="classToggle2">
+    <label class="form-check-label" for="classToggle2">切換色彩</label>
+  </div>
+  <hr>
+  <h4>陣列寫法</h4>
+  <button class="btn">請操作本元件</button>
+  <p>請用陣列呈現此元件 className</p>
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="classToggle3">
+    <label class="form-check-label" for="classToggle3">切換樣式</label>
+  </div>
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="classToggle4">
+    <label class="form-check-label" for="classToggle4">啟用元素狀態</label>
+  </div>
+  <hr>
+  <h4>綁定行內樣式</h4>
+  <p>請用不同方式綁定以下行內樣式</p>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <hr>
+  <h5>自動加上 Prefix (每個版本結果不同)</h5>
+  <div class="box"></div>
+</div>
+
+<script>
+var app = new Vue({
+  el: '#app',
+  data: {
+    isTransform: false,
+    boxColor: false,
+    objectClass: {
+      'rotate': false,
+      'bg-danger': false,
+    },
+
+    // Array 操作
+    arrayClass: [],
+
+    // 行內樣式
+    // 使用駝峰式命名
+    styleObject: {
+      backgroundColor: 'red',
+      borderWidth: '5px'
+    },
+    styleObject2: {
+      boxShadow: '3px 3px 5px rgba(0, 0, 0, 0.16)'
+    },
+    styleObject3: {
+      userSelect: 'none'
+    }
+  },
+});
+</script>
+
+<style>
+.box {
+  transition: all .5s;
+}
+.box.rotate {
+  transform: rotate(45deg)
+}
+</style>
+
+<!-- 解答：
+<h4>物件寫法</h4>
+<div class="box" :class="{ 'rotate': isTransform, 'bg-danger':  boxColor }"></div>
+<hr>
+<button class="btn btn-outline-primary" v-on:click="isTransform = !isTransform">選轉物件</button>
+<div class="form-check">
+  <input type="checkbox" class="form-check-input" id="classToggle1" v-model="boxColor">
+  <label class="form-check-label" for="classToggle1">切換色彩</label>
+</div>
+<hr>
+<h5>物件寫法 2</h5>
+<div class="box" :class="objectClass"></div>
+<hr>
+<button class="btn btn-outline-primary" v-on:click="objectClass.rotate = !objectClass.rotate">選轉物件</button>
+<div class="form-check">
+  <input type="checkbox" class="form-check-input" id="classToggle2" v-model="objectClass['bg-danger']">
+  <label class="form-check-label" for="classToggle2">切換色彩</label>
+</div>
+<hr>
+<h4>陣列寫法</h4>
+<button class="btn" :class="[primaryClass, activeClass]">請操作本元件</button>
+<div class="form-check">
+  <input type="checkbox" class="form-check-input" id="classToggle3" v-model="arrayClass" value="btn-outline-primary">
+  <label class="form-check-label" for="classToggle3">切換樣式</label>
+</div>
+<div class="form-check">
+  <input type="checkbox" class="form-check-input" id="classToggle4" v-model="arrayClass" value="active">
+  <label class="form-check-label" for="classToggle4">啟用元素狀態</label>
+</div>
+<hr>
+<h4>綁定行內樣式</h4>
+<div class="box" :style="{backgroundColor: styleObject.backgroundColor}"></div>
+<div class="box" :style="styleObject"></div>
+<div class="box" :style="[styleObject, styleObject2]"></div>
+<hr>
+<h5>自動加上 Prefix (每個版本結果不同)</h5>
+<div class="box" :style="[styleObject, styleObject3]"></div>
+--> 
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
