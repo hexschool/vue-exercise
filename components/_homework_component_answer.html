@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>作業練習：元件變換</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="images/favicon.ico" rel="shortcut icon">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/stylesheets/all.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/regular.js" integrity="sha384-t7yHmUlwFrLxHXNLstawVRBMeSLcXTbQ5hsd0ifzwGtN7ZF7RZ8ppM7Ldinuoiif" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>    <script src="/javascripts/vendor.js"></script>
+
+  </head>
+  
+  <body class="bg-lighter">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="/">Vue.js 練習手冊</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/basic/dev.html">基礎教學</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/template/basic.html">模板指令</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/components/basic.html">組件</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/api/vue_set.html">常用 API</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/es6/let_const.html">ES6</a>
+      </li>
+      
+    </ul>
+  </div>
+</nav>
+    <div class="container my-5">
+      <div class="row">
+        
+          <div class="col-md-3">
+            
+<div>
+  <h6 class="text-capitalize text-muted">components</h6>
+  
+    
+      <a href="/components/basic.html"  class="btn btn-block btn-link">
+        基礎元件
+      </a>
+    
+  
+    
+      <a href="/components/function_return.html"  class="btn btn-block btn-link">
+        元件必須使用 function return
+      </a>
+    
+  
+    
+      <a href="/components/prop_basic.html"  class="btn btn-block btn-link">
+        由外到內的資料傳遞
+      </a>
+    
+  
+    
+      <a href="/components/prop_adv.html"  class="btn btn-block btn-link">
+        Props 注意事項
+      </a>
+    
+  
+    
+      <a href="/components/prop_type.html"  class="btn btn-block btn-link">
+        Props 的型別
+      </a>
+    
+  
+    
+      <a href="/components/emit.html"  class="btn btn-block btn-link">
+        向外層傳送事件(Data)
+      </a>
+    
+  
+    
+      <a href="/components/slot.html"  class="btn btn-block btn-link">
+        Slot 插槽替換
+      </a>
+    
+  
+    
+      <a href="/components/is.html"  class="btn btn-block btn-link">
+        動態組建切換
+      </a>
+    
+  
+    
+      <a href="/components/eventbus.html"  class="btn btn-block btn-link">
+        Event Bus
+      </a>
+    
+  
+    
+      <a href="/components/homework_component.html"  class="btn btn-block btn-primary active">
+        作業練習：元件變換
+      </a>
+    
+  
+</div>
+          </div>
+        
+        <div class="col-md-9 post">      
+          <!-- 練習開始 -->
+          <h1 class="mt-0 text-muted">作業練習：元件變換</h1>
+          
+<h3>模板練習作業：Ajax 資料內容呈現</h3>
+<p>本作業一定要用到元件。</p>
+<div class="alert alert-secondary">
+  <p>提示：</p>
+  <ol class="mb-0">
+    <li>將資料內容透過 "元件" 呈現</li>
+    <li>製作城市過濾選項</li>
+    <li>將內層資料透過 emit 傳遞到外層 (作為另一個關注城市的呈現)</li>
+    <li>依據不同污染呈現不同色彩</li>
+    <li>加分題：透過 localStorage 儲存上次關注的城市</li>
+  </ol>
+</div>
+
+<div id="app">
+  <select name="" id="" class="form-control mb-3" v-model="filter">
+    <option value="">--- 請選擇城市 ---</option>
+    <option :value="item" v-for="(item, key) in location" :key="key">
+      {{ item }}
+    </option>
+  </select>
+  <div v-if="stared.length">
+    <h4>關注城市</h4>
+    <div class="card-columns">
+      <card :item="item" :stared="true" v-for="item in stared" v-on:remove="removeStar" v-if="stared.length" :class="{
+        'status-aqi1': item.Status === '良好',
+        'status-aqi2': item.Status === '普通',
+        'status-aqi3': item.Status === '對敏感族群不健康',
+        'status-aqi4': item.Status === '對所有族群不健康',
+        'status-aqi5': item.Status === '非常不健康',
+        'status-aqi6': item.Status === '危害'
+        }">
+      </card>
+    </div>
+  </div>
+  
+  <hr>
+  <div class="card-columns">
+    <card :item="item" :stared="false" v-for="item in filterData" v-on:add="addStar" :class="{
+      'status-aqi1': item.Status === '良好',
+      'status-aqi2': item.Status === '普通',
+      'status-aqi3': item.Status === '對敏感族群不健康',
+      'status-aqi4': item.Status === '對所有族群不健康',
+      'status-aqi5': item.Status === '非常不健康',
+      'status-aqi6': item.Status === '危害'
+      }">
+    </card>
+  </div>
+
+  <table class="table table-sm">
+    <thead>
+      <tr class="sticky-top">
+        <th>城市</th>
+        <th>站點</th>
+        <th>AQI指數</th>
+        <th>PM2.5</th>
+        <th>說明</th>
+        <th>更新時間</th>
+      </tr>
+    </thead>
+    <tbody>
+      <template v-for="(item, key) in filterData">
+        <tr :key="key" :class="{
+          'status-aqi1': item.Status === '良好',
+          'status-aqi2': item.Status === '普通',
+          'status-aqi3': item.Status === '對敏感族群不健康',
+          'status-aqi4': item.Status === '對所有族群不健康',
+          'status-aqi5': item.Status === '非常不健康',
+          'status-aqi6': item.Status === '危害'
+          }">
+          <td>{{ item.County }}</td>
+          <td>{{ item.SiteName }}</td>
+          <td>{{ item.AQI }}</td>
+          <td>{{ item['PM2.5'] }}</td>
+          <td>{{ item.Status }}</td>
+          <td>{{ item.PublishTime }}</td>
+        </tr>
+      </template>
+    </tbody>
+  </table>
+</div>
+
+<script type="text/x-template" id="card">
+<div class="card">
+  <div class="card-header">{{ item.County }} - {{ item.SiteName }}
+    <a href="#" class="float-right" v-if="!stared"
+      @click.prevent="addStar(item)"><i class="far fa-star"></i>
+    </a>
+    <a href="#" class="float-right" v-else
+      @click.prevent="removeStar(item)"><i class="fas fa-star"></i>
+    </a>
+  </div>
+  <div class="card-body">
+    <ul class="list-unstyled">
+      <li>AQI 指數: {{ item.AQI }}</li>
+      <li>PM2.5: {{ item['PM2.5'] }}</li>
+      <li>說明: {{ item.Status }}</li>
+    </ul>
+    {{ item.PublishTime }}
+  </div>
+</div>
+</script>
+
+
+<script>
+Vue.component('card', {
+  props: ['item', 'stared'],
+  template: '#card',
+  methods: {
+    addStar(item) {
+      var vm = this;
+      vm.$emit('add', item);
+    },
+    removeStar(item) {
+      var vm = this;
+      vm.$emit('remove', item);
+    }
+  },
+})
+
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    data: [],
+    location: [],
+    stared: [],
+    filter: '',
+  },
+  // 請在此撰寫 JavaScript
+  methods: {
+    getData() {
+      const vm = this;
+      const api = 'http://opendata2.epa.gov.tw/AQI.json';
+
+      // 使用 jQuery ajax
+      $.get(api).then(function( response ) {
+        vm.data = response;
+        console.log(response)
+      });
+    },
+    addStar: function(star) {
+      var isSame = this.stared.find(function(item) {
+        return star.SiteName === item.SiteName
+      })
+      if (!isSame) {
+        this.stared.push(star)
+      }
+    },
+    removeStar: function (star) {
+      stared = []
+      this.stared.forEach(function(item) {
+        if (item.SiteName !== star.SiteName) {
+          stared.push(item)
+        }
+      })
+      this.stared = stared
+    }
+  },
+  computed: {
+    filterData() {
+      const vm = this;
+      if (!vm.filter) {
+        return this.data;
+      }
+      return this.data.filter((item) => {
+        if (item.County === vm.filter) return item;
+        return false;
+      });
+    }
+  },
+  watch: {
+    data() {
+      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set
+      const locationSet = new Set();
+      this.data.forEach((item) => {
+        if (!locationSet.has(item.County)) locationSet.add(item.County);
+      });
+      this.location = Array.from(locationSet);
+    },
+  },
+  created() {
+    var vm = this;
+    vm.getData();
+    
+    vm.$on('addStar', function(item) {
+      vm.stared.push(item)
+    })
+    vm.$on('removeStar', function(item) {
+      vm.stared.push(item)
+    })
+  },
+});
+</script>
+
+<style>
+.status-aqi2 {
+  background-color: #ffff00;
+}
+.status-aqi3 {
+  background-color: #ff7e00;
+}
+.status-aqi4 {
+  background-color: #ff0000;
+}
+.status-aqi5 {
+  background-color: #8f3f97;
+}
+.status-aqi6 {
+  background-color: #7e0023;
+}
+</style>
+
+ 
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

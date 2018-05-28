@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>計算及監聽</title>
+    <title>作業練習：表格排序</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="images/favicon.ico" rel="shortcut icon">
     <meta charset="UTF-8">
@@ -72,7 +72,7 @@
     
   
     
-      <a href="/template/computed_watch.html"  class="btn btn-block btn-primary active">
+      <a href="/template/computed_watch.html"  class="btn btn-block btn-link">
         計算及監聽
       </a>
     
@@ -90,7 +90,7 @@
     
   
     
-      <a href="/template/homework_sortby.html"  class="btn btn-block btn-link">
+      <a href="/template/homework_sortby.html"  class="btn btn-block btn-primary active">
         作業練習：表格排序
       </a>
     
@@ -100,123 +100,146 @@
         
         <div class="col-md-9 post">      
           <!-- 練習開始 -->
-          <h1 class="mt-0 text-muted">計算及監聽</h1>
+          <h1 class="mt-0 text-muted">作業練習：表格排序</h1>
           
+<h3>模板練習作業：Ajax 資料內容呈現</h3>
 <div class="alert alert-secondary">
+  <p>提示：</p>
   <ol class="mb-0">
-    <li>請跟隨課程完成此章節。</li>
-  </ol>  
+    <li>將資料內容透過 "元件" 呈現</li>
+    <li>製作城市過濾選項</li>
+    <li>將內層資料透過 emit 傳遞到外層 (作為另一個關注城市的呈現)</li>
+    <li>依據不同污染呈現不同色彩</li>
+    <li>加分題：透過 localStorage 儲存上次關注的城市</li>
+  </ol>
 </div>
 
 <div id="app">
-  <h4>Computed</h4>
-  <p>使用 Computed 來過濾資料。</p>
-  <input type="text" class="form-control" v-model="filterText">
-  <ul>
-    <li v-for="(item, key) in arrayData" :key="item.age">
-      {{ key }} - {{ item.name }} {{ item.age }} 歲 <input type="text">
-    </li>
-  </ul> 
-  <p>使用 Computed 來呈現時間格式。</p>
-  <p></p>
-  <h4>Watch</h4>
-  <p>使用 trigger 來觸發旋轉 box、並在三秒後改變回來</p>
-  <div class="box" :class="{'rotate': trigger }"></div>
-  <hr>
-  <button class="btn btn-outline-primary">Counter</button>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>品名</th>
+        <th class="click" @click="sortBy = 'price'">價格 
+          <span class="icon" :class="{'inverse': isReverse === -1}"
+            v-if="currentSort == 'price'">
+            <i class=" fas fa-angle-up text-success"></i>
+          </span>
+        </th>
+        <th class="click" @click="sortBy = 'expiryDate'">到期日 
+          <span class="icon" :class="{'inverse': isReverse === -1}"
+            v-if="currentSort == 'expiryDate'">
+            <i class=" fas fa-angle-up text-success"></i>
+          </span>
+        </th>
+      </tr>
+      <tr v-for="item in sortData">
+        <td>{{ item.name }}</td>
+        <td>{{ item.price }}</td>
+        <td>{{ item.expiryDate }}</td>
+      </tr>
+    </thead>
+  </table>
 </div>
 
 <script>
 var app = new Vue({
   el: '#app',
   data: {
-    arrayData: [
+    data: [
       {
-        name: '小明',
-        age: 16
+        name: '巧呼呼蘇打水',
+        price: 30,
+        expiryDate: 90
       },
       {
-        name: '漂亮阿姨',
-        age: 24
+        name: '心驚膽跳羊肉飯',
+        price: 65,
+        expiryDate: 2
       },
       {
-        name: '杰倫',
-        age: 20
+        name: '郭師傅武功麵包',
+        price: 32,
+        expiryDate: 1
+      },
+      {
+        name: '不太會過期的新鮮牛奶',
+        price: 75,
+        expiryDate: 600
+      },
+      {
+        name: '金殺 巧粒粒',
+        price: 120,
+        expiryDate: 200
       }
     ],
-    filterText: '',
-    trigger: false,
-    newDate: 0
+    newArray: [],
+    sortBy: '',
+    currentSort: '',
+    isReverse: 1
   },
+  // 請在此撰寫 JavaScript
+  methods: {
+    updateOrder: function(sortBy) {
+      var vm = this
+      
+      vm.sortBy = sortBy
+      // vm.newArray = []
+      // vm.forEach(function(item) {
+      //   vm.newArray.push
+      // });
+    }
+  },
+  computed: {
+    sortData: function () {
+      var vm = this
 
-  // 解答
-  // methods: {
-  //   openTrigger: function() {
-  //     var vm = this;
-  //     vm.trigger = true
-  //   },
-  //   closeTrigger: function() {
-  //     var vm = this;
-  //     setTimeout(function() { 
-  //       vm.trigger = false
-  //     }, 3000);
-  //   }
-  // },
-  // watch: {
-  //   trigger: function() {
-  //     this.closeTrigger();
-  //   }
-  // },
-  // computed: {
-  //   filterArray: function () {
-  //     var vm = this;
-  //     return vm.arrayData.filter(function(item) {
-  //       return item.name.match(vm.filterText);
-  //     });
-  //   },
-  //   formatTime: function () {
-  //     console.log(this.newDate)
-  //     var dates = new Date(this.newDate * 1000);
-  //     var year = dates.getFullYear();
-  //     var month = dates.getMonth() + 1;
-  //     var date = dates.getDate() + 1;
-  //     var hours = dates.getHours();
-  //     var minutes = dates.getMinutes();
-  //     var seconds = dates.getSeconds();
-  //     return `${year}/${month}/${date} ${hours}:${minutes}:${seconds}`
-  //   }
-  // },
-  // mounted: function () {
-  //   this.newDate = Math.floor(Date.now() / 1000);
-  // }
+      // 假設與上次相同，則反轉數值
+      if (vm.currentSort === vm.sortBy) { vm.isReverse = -(vm.isReverse); }
+
+      // 排序方式
+      var order = vm.isReverse
+
+      // 暫存資料
+      var data = vm.data
+
+      // 使用 Sort 排序資料
+      data = data.sort(function (a, b) {
+        // 抓出排序資料的值
+        a = a[vm.sortBy]
+        b = b[vm.sortBy]
+
+        // 回傳 1, 0, -1 來進行排列
+        // 詳細規則可參考 https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+        return (a === b ? 0 : a > b ? 1 : -1) * order
+      })
+      
+      console.log(data, order, vm.currentSort, vm.sortBy, vm.isReverse)
+      vm.currentSort = vm.sortBy
+      vm.sortBy = ''
+      return data
+    }
+  }
 });
 </script>
 
 <style>
-.box {
-  transition: all .5s;
+.table th.click {
+  cursor: pointer;
 }
-.box.rotate {
-  transform: rotate(45deg)
+
+.table th.click {
+  cursor: pointer;
+}
+
+.icon {
+  display: inline-block;
+}
+.icon.inverse {
+  transform: rotate(180deg)
 }
 </style>
 
-<!-- 解答：
-<h4>Computed</h4>
-<input type="text" class="form-control" v-model="filterText">
-<ul>
-  <li v-for="(item, key) in filterArray" :key="item.age">
-    {{ key }} - {{ item.name }} {{ item.age }} 歲 <input type="text">
-  </li>
-</ul>
-<p>使用 Computed 來呈現時間格式。</p>
-<p>{{ formatTime }}</p>
-<h4>Watch</h4>
-<p>使用 trigger 來觸發三秒後旋轉 box、並在三秒後改變回來</p>
-<div class="box" :class="{'rotate': trigger }"></div>
-<hr>
-<button class="btn btn-outline-primary" @click="openTrigger">Counter</button>
---> 
+ 
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Props 的型別</title>
+    <title>作業練習：元件變換</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="images/favicon.ico" rel="shortcut icon">
     <meta charset="UTF-8">
@@ -72,7 +72,7 @@
     
   
     
-      <a href="/components/prop_type.html"  class="btn btn-block btn-primary active">
+      <a href="/components/prop_type.html"  class="btn btn-block btn-link">
         Props 的型別
       </a>
     
@@ -102,7 +102,7 @@
     
   
     
-      <a href="/components/homework_component.html"  class="btn btn-block btn-link">
+      <a href="/components/homework_component.html"  class="btn btn-block btn-primary active">
         作業練習：元件變換
       </a>
     
@@ -112,55 +112,115 @@
         
         <div class="col-md-9 post">      
           <!-- 練習開始 -->
-          <h1 class="mt-0 text-muted">Props 的型別</h1>
+          <h1 class="mt-0 text-muted">作業練習：元件變換</h1>
           
+<h3>模板練習作業：Ajax 資料內容呈現</h3>
+<p>本作業一定要用到元件。</p>
 <div class="alert alert-secondary">
+  <p>提示：</p>
   <ol class="mb-0">
-    <li>請跟隨課程完成此章節。</li>
+    <li>將資料內容透過 "元件" 呈現</li>
+    <li>製作城市過濾選項</li>
+    <li>將內層資料透過 emit 傳遞到外層 (作為另一個關注城市的呈現)</li>
+    <li>依據不同污染呈現不同色彩</li>
+    <li>加分題：透過 localStorage 儲存上次關注的城市</li>
   </ol>
 </div>
 
 <div id="app">
-  <h2>Props 的型別</h2>
-  <prop-type :cash="cash"></prop-type>
-
-  <h2 class="mt-3">靜態與動態傳入數值差異</h2>
-  <prop-type cash="300"></prop-type>
+  <select name="" id="" class="form-control mb-3">
+    <option value="">--- 請選擇城市 ---</option>
+  </select>
+  <div>
+    <h4>關注城市</h4>
+    <div class="card-columns">
+      <div class="card status-aqi2">
+        <div class="card-header">苗栗縣 - 三義
+          <a href="#" class="float-right"><i class="fas fa-star"></i></a>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled">
+            <li>AQI 指數: 54</li>
+            <li>PM2.5: 8</li>
+            <li>說明: 普通</li>
+          </ul>
+          2018-05-20 16:00
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <hr>
+  <div class="card-columns">
+    <div class="card status-aqi2">
+      <div class="card-header">苗栗縣 - 三義
+        <a href="#" class="float-right"><i class="far fa-star"></i></a>
+      </div>
+      <div class="card-body">
+        <ul class="list-unstyled">
+          <li>AQI 指數: 54</li>
+          <li>PM2.5: 8</li>
+          <li>說明: 普通</li>
+        </ul>
+      2018-05-20 16:00
+      </div>
+    </div>
+  </div>
 </div>
-
-<script type="text/x-template" id="propType">
-<div>
-  <input type="number" class="form-control" v-model="newCash">
-  {{ typeof(cash)}}
-</div>
-</script>
 
 <script>
-Vue.component('prop-type', {
-  props: ['cash'],
-
-  // 解答：
-  // props: {
-  //   cash: {
-  //     type: Number,
-  //     default: 100
-  //   }
-  // },
-  template: '#propType',
-  data: function() {
-    return {
-      newCash: this.cash
-    }
-  }
-});
+// API 來源
+// https://opendata.epa.gov.tw/Data/Contents/AQI/
 
 var app = new Vue({
   el: '#app',
   data: {
-    cash: '300'
+    data: [],
+    location: [],
+    stared: [],
+    filter: '',
+  },
+  // 請在此撰寫 JavaScript
+  methods: {
+    getData() {
+      const vm = this;
+      const api = 'http://opendata2.epa.gov.tw/AQI.json';
+
+      // 使用 jQuery ajax
+      $.get(api).then(function( response ) {
+        vm.data = response;
+        console.log(response)
+      });
+    },
   }
 });
 </script>
+<!-- 
+狀態對應表
+'良好',
+'status-aqi2' '普通',
+'status-aqi3' '對敏感族群不健康',
+'status-aqi4' '對所有族群不健康',
+'status-aqi5' '非常不健康',
+'status-aqi6' '危害'
+--> 
+<style>
+.status-aqi2 {
+  background-color: #ffff00;
+}
+.status-aqi3 {
+  background-color: #ff7e00;
+}
+.status-aqi4 {
+  background-color: #ff0000;
+}
+.status-aqi5 {
+  background-color: #8f3f97;
+}
+.status-aqi6 {
+  background-color: #7e0023;
+}
+</style>
 
  
         </div>
